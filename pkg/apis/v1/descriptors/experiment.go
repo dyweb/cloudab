@@ -1,7 +1,7 @@
 package descriptors
 
 import (
-	"github.com/abtest-io/cloudab-server/pkg/handlers"
+	"github.com/dyweb/cloudab/pkg/handlers"
 
 	"github.com/caicloud/nirvana/definition"
 	def "github.com/caicloud/nirvana/definition"

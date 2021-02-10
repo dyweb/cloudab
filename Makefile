@@ -24,10 +24,10 @@
 #
 
 # This repo's root import path (under GOPATH).
-ROOT := github.com/abtest-io/cloudab-server
+ROOT := github.com/dyweb/cloudab
 
 # Target binaries. You can build multiple binaries for a single project.
-TARGETS := cloudab-server
+TARGETS := cloudab
 
 # Container image prefix and suffix added to targets.
 # The final built images are:

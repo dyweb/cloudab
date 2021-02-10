@@ -1,5 +1,5 @@
 FROM debian:stretch
 
-ADD bin/cloudab-server /usr/local/bin
+ADD bin/cloudab /usr/local/bin
 
-ENTRYPOINT ["cloudab-server"]
+ENTRYPOINT ["cloudab"]

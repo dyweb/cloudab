@@ -11,7 +11,7 @@
 //     github.com/additional/dependency/v4 v4.0.0
 // )
 
-module github.com/abtest-io/cloudab-server
+module github.com/dyweb/cloudab
 
 go 1.15
 

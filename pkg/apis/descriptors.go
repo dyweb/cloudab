@@ -3,8 +3,8 @@
 package apis
 
 import (
-	descriptorsv1 "github.com/abtest-io/cloudab-server/pkg/apis/v1/descriptors"
-	"github.com/abtest-io/cloudab-server/pkg/middlewares"
+	descriptorsv1 "github.com/dyweb/cloudab/pkg/apis/v1/descriptors"
+	"github.com/dyweb/cloudab/pkg/middlewares"
 
 	def "github.com/caicloud/nirvana/definition"
 )

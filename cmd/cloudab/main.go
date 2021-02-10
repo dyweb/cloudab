@@ -10,12 +10,12 @@ import (
 	"github.com/caicloud/nirvana/plugins/reqlog"
 	pversion "github.com/caicloud/nirvana/plugins/version"
 
-	"github.com/abtest-io/cloudab-server/pkg/apis"
-	customconfig "github.com/abtest-io/cloudab-server/pkg/config"
-	"github.com/abtest-io/cloudab-server/pkg/filters"
-	"github.com/abtest-io/cloudab-server/pkg/modifiers"
-	"github.com/abtest-io/cloudab-server/pkg/store"
-	"github.com/abtest-io/cloudab-server/pkg/version"
+	"github.com/dyweb/cloudab/pkg/apis"
+	customconfig "github.com/dyweb/cloudab/pkg/config"
+	"github.com/dyweb/cloudab/pkg/filters"
+	"github.com/dyweb/cloudab/pkg/modifiers"
+	"github.com/dyweb/cloudab/pkg/store"
+	"github.com/dyweb/cloudab/pkg/version"
 )
 
 func main() {
@@ -32,7 +32,7 @@ func main() {
 	metricsOption := metrics.NewDefaultOption() // Metrics plugin.
 	reqlogOption := reqlog.NewDefaultOption()   // Request log plugin.
 	versionOption := pversion.NewOption(        // Version plugin.
-		"cloudab-server",
+		"cloudab",
 		version.Version,
 		version.Commit,
 		version.Package,

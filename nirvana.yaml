@@ -1,7 +1,7 @@
 # This file describes your project. It's used to generate api docs and
 # clients. All fields in this file won't affect nirvana configurations.
 
-project: cloudab-server
+project: cloudab
 description: Cloud Native A/B Test System
 schemes:
 - http

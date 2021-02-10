@@ -4,5 +4,5 @@ package version
 var (
 	Version = "Unknown"
 	Commit  = "Unknown"
-	Package = "github.com/abtest-io/cloudab-server"
+	Package = "github.com/dyweb/cloudab"
 )
