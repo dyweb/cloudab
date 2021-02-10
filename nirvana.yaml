@@ -1,0 +1,18 @@
+# This file describes your project. It's used to generate api docs and
+# clients. All fields in this file won't affect nirvana configurations.
+
+project: cloudab-server
+description: Cloud Native A/B Test System
+schemes:
+- http
+hosts:
+- localhost:9999
+contacts:
+- name: Ce Gao
+  email: gaocegege@hotmail.com
+  description: Maintain this project
+versions:
+- name: v1
+  description: The v1 version is the first version of this project
+  rules:
+  - prefix: /apis/v1/
