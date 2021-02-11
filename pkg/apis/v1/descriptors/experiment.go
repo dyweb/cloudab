@@ -2,9 +2,14 @@ package descriptors
 
 import (
 	"github.com/dyweb/cloudab/pkg/handlers"
+	"github.com/dyweb/cloudab/pkg/handlers/experiments"
 
 	"github.com/caicloud/nirvana/definition"
 	def "github.com/caicloud/nirvana/definition"
+)
+
+var (
+	ctr experiments.Controller = experiments.New()
 )
 
 func init() {
@@ -25,7 +30,7 @@ var listExperiments = def.Definition{
 	Method:      def.List,
 	Summary:     "List experiments",
 	Description: "Query a specified number of experiments and returns an array",
-	Function:    handlers.ListExperiments,
+	Function:    ctr.ListExperiments,
 	Parameters: []def.Parameter{
 		{
 			Source:      def.Query,
@@ -41,7 +46,7 @@ var createExperiment = def.Definition{
 	Method:      def.Create,
 	Summary:     "Create experiment",
 	Description: "Create a new experiment",
-	Function:    handlers.CreateExperiment,
+	Function:    ctr.CreateExperiment,
 	Parameters: []def.Parameter{
 		definition.BodyParameterFor("JSON body to describe the new experiment"),
 	},

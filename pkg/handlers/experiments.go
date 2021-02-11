@@ -6,14 +6,12 @@ import (
 	v1 "github.com/dyweb/cloudab/pkg/apis/v1"
 )
 
+type name struct {
+}
+
 // ListExperiments returns all experiments.
 func ListExperiments(ctx context.Context, count int) ([]v1.Message, error) {
 	return nil, nil
-}
-
-func CreateExperiment(
-	ctx context.Context, exp *v1.Experiment) (*v1.Experiment, error) {
-	return exp, nil
 }
 
 // GetMessage return a message by id.
