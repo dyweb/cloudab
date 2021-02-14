@@ -1,7 +1,7 @@
 package descriptors
 
 import (
-	"github.com/dyweb/cloudab/pkg/handlers"
+	"github.com/dyweb/cloudab/pkg/apis/v1/converters"
 	"github.com/dyweb/cloudab/pkg/handlers/experiments"
 
 	"github.com/caicloud/nirvana/definition"
@@ -20,8 +20,8 @@ func init() {
 			createExperiment,
 		},
 	}, {
-		Path:        "/experiments/{experiments}",
-		Definitions: []def.Definition{getMessage},
+		Path:        "/experiments/{experiment}",
+		Definitions: []def.Definition{getExperiment},
 	},
 	}...)
 }
@@ -53,13 +53,20 @@ var createExperiment = def.Definition{
 	Results: def.DataErrorResults("A list of experiments"),
 }
 
-var getMessage = def.Definition{
+var getExperiment = def.Definition{
 	Method:      def.Get,
-	Summary:     "Get Message",
-	Description: "Get a message by id",
-	Function:    handlers.GetMessage,
+	Summary:     "Get experiment",
+	Description: "Get a experiment by id",
+	Function:    ctr.GetExperiment,
 	Parameters: []def.Parameter{
-		def.PathParameterFor("message", "Message id"),
+		{
+			Source:      def.Path,
+			Name:        "experiment",
+			Description: "experiment id",
+			Operators: []def.Operator{
+				converters.ObjectID,
+			},
+		},
 	},
-	Results: def.DataErrorResults("A message"),
+	Results: def.DataErrorResults("An experiment"),
 }

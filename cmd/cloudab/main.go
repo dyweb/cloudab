@@ -77,13 +77,13 @@ func main() {
 			config.Logger().Infof("Package:%s Version:%s Commit:%s", version.Package, version.Version, version.Commit)
 			return nil
 		},
-		PostServeFunc: func(config *nirvana.Config, server nirvana.Server, err error) error {
-			// Output project information.
-			config.Logger().Infof("Disconnecting to mongo")
+		// PostServeFunc: func(config *nirvana.Config, server nirvana.Server, err error) error {
+		// 	// Output project information.
+		// 	config.Logger().Infof("Disconnecting to mongo")
 
-			// TODO(gaocegege): Make it work.
-			return store.Disconnect()
-		},
+		// 	// TODO(gaocegege): Make it work.
+		// 	return store.Disconnect()
+		// },
 	})
 
 	// Start with server config.

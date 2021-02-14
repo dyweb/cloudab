@@ -39,10 +39,3 @@ type Metric struct {
 	Name      string              `json:"name,omitempty" bson:"name,omitempty"`
 	EventName string              `json:"event_name,omitempty" bson:"event_name,omitempty"`
 }
-
-// Message describes a message entry.
-type Message struct {
-	ID      int    `json:"id"`
-	Title   string `json:"title"`
-	Content string `json:"content"`
-}
