@@ -34,6 +34,13 @@ type Feature struct {
 	// TODO(gaocegege): Support number, boolean.
 }
 
+type ABConfig struct {
+	Features       []Feature           `json:"features,omitempty" bson:"features,omitempty"`
+	ExperimentName string              `json:"experiment_name,omitempty" bson:"experiment_name,omitempty"`
+	ExperimentID   *primitive.ObjectID `json:"experiment_id,omitempty" bson:"experiment_id,omitempty"`
+	Versions       []string            `json:"versions,omitempty" bson:"versions,omitempty"`
+}
+
 type Metric struct {
 	ID        *primitive.ObjectID `json:"id,omitempty" bson:"_id,omitempty"`
 	Name      string              `json:"name,omitempty" bson:"name,omitempty"`

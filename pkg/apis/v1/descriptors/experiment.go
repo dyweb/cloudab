@@ -9,7 +9,7 @@ import (
 )
 
 var (
-	ctr experiments.Controller = experiments.New()
+	expCtr experiments.Controller = experiments.New()
 )
 
 func init() {
@@ -30,7 +30,7 @@ var listExperiments = def.Definition{
 	Method:      def.List,
 	Summary:     "List experiments",
 	Description: "Query a specified number of experiments and returns an array",
-	Function:    ctr.ListExperiments,
+	Function:    expCtr.ListExperiments,
 	Parameters: []def.Parameter{
 		{
 			Source:      def.Query,
@@ -46,7 +46,7 @@ var createExperiment = def.Definition{
 	Method:      def.Create,
 	Summary:     "Create experiment",
 	Description: "Create a new experiment",
-	Function:    ctr.CreateExperiment,
+	Function:    expCtr.CreateExperiment,
 	Parameters: []def.Parameter{
 		definition.BodyParameterFor("JSON body to describe the new experiment"),
 	},
@@ -56,8 +56,8 @@ var createExperiment = def.Definition{
 var getExperiment = def.Definition{
 	Method:      def.Get,
 	Summary:     "Get experiment",
-	Description: "Get a experiment by id",
-	Function:    ctr.GetExperiment,
+	Description: "Get an experiment by id",
+	Function:    expCtr.GetExperiment,
 	Parameters: []def.Parameter{
 		{
 			Source:      def.Path,

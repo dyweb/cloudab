@@ -12,16 +12,19 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
+// Controller defines the Experiment controller which is used to handle user requests.
 type Controller struct {
 	collection string
 }
 
+// New creates a new Controller.
 func New() Controller {
 	return Controller{
 		collection: "experiments",
 	}
 }
 
+// CreateExperiment creates a new experiment.
 func (c Controller) CreateExperiment(
 	ctx context.Context, exp *v1.Experiment) (*v1.Experiment, error) {
 	cctx, cancel := context.WithTimeout(ctx, 1*time.Second)
@@ -29,6 +32,12 @@ func (c Controller) CreateExperiment(
 	logger := log.DefaultLogger()
 	logger.V(log.LevelDebug).Infof(
 		"Creating the experiment %s in collection %s", exp.Name, c.collection)
+
+	// Set objectID for versions.
+	for i := range exp.Versions {
+		versionID := primitive.NewObjectID()
+		exp.Versions[i].ID = &versionID
+	}
 
 	if _, err := store.DB.Collection(c.collection).InsertOne(cctx, exp); err != nil {
 		return nil, err
@@ -59,7 +68,12 @@ func (c Controller) GetExperiment(ctx context.Context, id primitive.ObjectID) (*
 	cctx, cancel := context.WithTimeout(ctx, 1*time.Second)
 	defer cancel()
 
-	exp := store.DB.Collection(c.collection).FindOne(cctx, bson.D{{"_id", id}})
+	exp := store.DB.Collection(c.collection).FindOne(cctx, bson.D{
+		{
+			Key:   "_id",
+			Value: id,
+		},
+	})
 	if exp == nil {
 		return nil, fmt.Errorf("Failed to find the experiment with id %s", id.Hex())
 	}
