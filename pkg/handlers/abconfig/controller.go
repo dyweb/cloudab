@@ -68,5 +68,6 @@ func (c Controller) GetABConfig(ctx context.Context,
 		Versions: []string{
 			versions[versionID].ID.Hex(),
 		},
+		Features: versions[versionID].Features,
 	}, nil
 }
