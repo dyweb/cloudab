@@ -2,29 +2,21 @@ package traffic
 
 import (
 	"fmt"
-	"hash/maphash"
-	"unsafe"
 
 	"github.com/caicloud/nirvana/log"
 	v1 "github.com/dyweb/cloudab/pkg/apis/v1"
+	"github.com/spaolacci/murmur3"
 )
 
 const (
 	defaultBuckets = 1000
+	defaultSeed    = 10000
 )
 
 var (
-	defaultSeed = &struct {
-		s uint64
-	}{
-		s: 10000,
-	}
-	ds              = (*maphash.Seed)(unsafe.Pointer(defaultSeed))
 	defaultHashFunc = func(userID string) uint64 {
-		var h maphash.Hash
-		h.Reset()
-		h.SetSeed(*ds)
-		h.WriteString(userID)
+		h := murmur3.New64WithSeed(defaultSeed)
+		h.Write([]byte(userID))
 		return h.Sum64()
 	}
 )
@@ -48,18 +40,20 @@ func (r Router) Route(userID string, versions []v1.Version) (int, error) {
 	logger := log.DefaultLogger()
 
 	hashNum := r.HashFunc(userID)
+	logger.V(log.LevelDebug).Infof(
+		"UserID %s, hash is %d", userID, hashNum)
 	bucketNum := hashNum % r.Bucket
 
 	expected := -1
 	for i, v := range versions {
 		currentBuckets := uint64(v.Traffic) * (r.Bucket / 100)
 		logger.V(log.LevelDebug).Infof(
-			"Expected bucket: %d, hash: %d, current bucket: %d", bucketNum, hashNum, currentBuckets)
+			"Expected bucket: %d, current bucket: %d", bucketNum, currentBuckets)
 		if bucketNum > currentBuckets {
 			bucketNum -= currentBuckets
 		}
-		logger.V(log.LevelDebug).Infof("Find the expected version %d", expected)
 		expected = i
+		logger.V(log.LevelDebug).Infof("Find the expected version %d", expected)
 		break
 	}
 
