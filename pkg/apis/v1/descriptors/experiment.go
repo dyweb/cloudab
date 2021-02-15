@@ -50,7 +50,7 @@ var createExperiment = def.Definition{
 	Parameters: []def.Parameter{
 		definition.BodyParameterFor("JSON body to describe the new experiment"),
 	},
-	Results: def.DataErrorResults("A list of experiments"),
+	Results: def.DataErrorResults("An experiment"),
 }
 
 var getExperiment = def.Definition{
