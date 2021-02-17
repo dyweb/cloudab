@@ -39,9 +39,13 @@ func (c Controller) CreateExperiment(
 		exp.Versions[i].ID = &versionID
 	}
 
-	if _, err := store.DB.Collection(c.collection).InsertOne(cctx, exp); err != nil {
+	result, err := store.DB.Collection(c.collection).InsertOne(cctx, exp)
+	if err != nil {
 		return nil, err
 	}
+	// Set id for the retured object.
+	id := result.InsertedID.(primitive.ObjectID)
+	exp.ID = &id
 	return exp, nil
 }
 
