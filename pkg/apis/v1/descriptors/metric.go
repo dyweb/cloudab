@@ -1,28 +1,53 @@
 package descriptors
 
-// import (
-// 	"github.com/dyweb/cloudab/pkg/handlers/metrics"
+import (
+	"github.com/dyweb/cloudab/pkg/apis/v1/converters"
+	"github.com/dyweb/cloudab/pkg/handlers/metrics"
 
-// 	def "github.com/caicloud/nirvana/definition"
-// )
+	def "github.com/caicloud/nirvana/definition"
+)
 
-// var (
-// 	metricCtr metrics.Controller = metrics.New()
-// )
+var (
+	metricCtr metrics.Controller = metrics.New()
+)
 
-// func init() {
-// 	register([]def.Descriptor{{
-// 		Path:        "/experiments/{experiment}/metrics",
-// 		Definitions: []def.Definition{reportMetrics},
-// 	},
-// 	}...)
-// }
+func init() {
+	register([]def.Descriptor{{
+		Path:        "/experiments/{experiment}/metrics",
+		Definitions: []def.Definition{reportMetrics},
+	},
+	}...)
+}
 
-// var reportMetrics = def.Definition{
-// 	Method:      def.Get,
-// 	Summary:     "Report metrics to cloudab server",
-// 	Description: "Report custom metrics to the server",
-// 	Function:    abcCtr.GetABConfig,
-// 	Parameters:  []def.Parameter{},
-// 	Results:     def.DataErrorResults("The metrics"),
-// }
+var reportMetrics = def.Definition{
+	Method:      def.Patch,
+	Summary:     "Report metrics to cloudab server",
+	Description: "Report custom metrics to the server",
+	Function:    metricCtr.ReportMetrics,
+	Parameters: []def.Parameter{
+		{
+			Source:      def.Path,
+			Name:        "experiment",
+			Description: "experiment id",
+			Operators: []def.Operator{
+				converters.ObjectID,
+			},
+		},
+		{
+			Source:      def.Query,
+			Name:        "userID",
+			Description: "user unique ID",
+		},
+		{
+			Source:      def.Query,
+			Name:        "metricName",
+			Description: "metric name",
+		},
+		{
+			Source:      def.Query,
+			Name:        "value",
+			Description: "metric value",
+		},
+	},
+	Results: def.DataErrorResults("The metrics"),
+}
