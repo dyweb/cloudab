@@ -13,6 +13,7 @@ type Experiment struct {
 	Name string              `json:"name,omitempty" bson:"name,omitempty"`
 
 	// TODO(gaocegege): Support layers.
+	// TODO(gaocegege): Should we keep versions in another collection?
 	Versions []Version `json:"versions,omitempty" bson:"versions,omitempty"`
 }
 
@@ -20,9 +21,11 @@ type Version struct {
 	ID   *primitive.ObjectID `json:"id,omitempty" bson:"_id,omitempty"`
 	Name string              `json:"name,omitempty" bson:"name,omitempty"`
 
-	Traffic  int32             `json:"traffic,omitempty" bson:"traffic,omitempty"`
-	Features []Feature         `json:"features,omitempty" bson:"features,omitempty"`
-	Metrics  map[string]Metric `json:"metrics,omitempty" bson:"metrics,omitempty"`
+	Traffic  int32     `json:"traffic,omitempty" bson:"traffic,omitempty"`
+	Features []Feature `json:"features,omitempty" bson:"features,omitempty"`
+
+	// TODO(gaocegege): Should we keep metrics in another collection?
+	Metrics map[string]Metric `json:"metrics,omitempty" bson:"metrics,omitempty"`
 }
 
 type Feature struct {

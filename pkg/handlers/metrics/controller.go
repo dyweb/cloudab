@@ -64,6 +64,10 @@ func (c Controller) ReportMetrics(ctx context.Context,
 		return nil, fmt.Errorf("Failed to get the version at %d: %v",
 			versionID, versions[versionID])
 	}
+
+	if versions[versionID].Metrics == nil {
+		versions[versionID].Metrics = make(map[string]v1.Metric)
+	}
 	versions[versionID].Metrics[metricName] = v1.Metric{
 		Name:  metricName,
 		Value: value,
@@ -71,12 +75,14 @@ func (c Controller) ReportMetrics(ctx context.Context,
 
 	cctx, cancel = context.WithTimeout(ctx, 1*time.Second)
 	defer cancel()
-	_, err = store.DB.Collection(c.collection).UpdateOne(cctx, bson.D{
-		{
-			Key:   "_id",
-			Value: id,
-		},
-	}, experiment)
+	// TODO(gaocegege): Use updateOnce instead.
+	_, err = store.DB.Collection(c.collection).ReplaceOne(cctx,
+		bson.D{
+			{
+				Key:   "_id",
+				Value: id,
+			},
+		}, experiment)
 	if err != nil {
 		return nil, err
 	}

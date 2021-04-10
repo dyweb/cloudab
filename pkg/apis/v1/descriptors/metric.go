@@ -20,7 +20,7 @@ func init() {
 }
 
 var reportMetrics = def.Definition{
-	Method:      def.Create,
+	Method:      def.Patch,
 	Summary:     "Report metrics to cloudab server",
 	Description: "Report custom metrics to the server",
 	Function:    metricCtr.ReportMetrics,
