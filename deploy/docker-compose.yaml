@@ -1,0 +1,18 @@
+version: "3.9"  # optional since v1.27.0
+services:
+  web:
+    build: 
+      context: ..
+      dockerfile: build/cloudab/Dockerfile
+    image: cloudab:dev
+    command: ["cloudab", "--mongo-uri", "mongodb://mongo:27017"]
+    ports:
+      - "9999:9999"
+    volumes:
+      - logvolume01:/var/log
+    links:
+      - mongo
+  mongo:
+    image: mongo:5.0.3
+volumes:
+  logvolume01: {}
