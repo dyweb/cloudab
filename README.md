@@ -61,7 +61,7 @@ curl --location --request POST 'http://localhost:9999/apis/v1/experiments' \
 
 返回如下：
 
-```json
+```JSON
 {
     "id": "602ca4df9f4e8f5088966f6c",
     "name": "test",
