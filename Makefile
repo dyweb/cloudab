@@ -86,7 +86,7 @@ export GOFLAGS ?= -mod=vendor -p=$(CPUS) -count=1
 #
 
 # All targets.
-.PHONY: lint test build container push
+.PHONY: lint test build container push deploy-docker-compose
 
 build: build-local
 
@@ -139,6 +139,10 @@ push: container
 	  image=$(IMAGE_PREFIX)$${target}$(IMAGE_SUFFIX);                                  \
 	  docker push $${image}:$(VERSION);                                                \
 	done
+
+deploy-docker-compose:
+	docker compose -f ./deploy/docker-compose.yaml build && \
+	docker compose -f ./deploy/docker-compose.yaml up
 
 .PHONY: clean
 clean:
